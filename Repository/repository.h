@@ -8,7 +8,6 @@
 
 #endif //REPOSITORY_H
 #include<map>
-#include"product.h"
 using namespace  std;
 
 template<typename T> class Repository

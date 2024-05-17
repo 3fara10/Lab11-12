@@ -1,4 +1,4 @@
-#include "product.h"
+#include "C:/Users/Home/CLionProjects/lab9-10/Domain/product.h"
 #include <cstring>
 //---------------------------------------------------------------CONSTRUCTORS
 Product::Product()

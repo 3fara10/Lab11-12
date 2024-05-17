@@ -1,0 +1,4 @@
+2 cola 6.5 6
+5 fanta 8 0
+12 pepsi 9 0
+9 croissant 9 2

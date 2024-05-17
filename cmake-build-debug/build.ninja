@@ -55,29 +55,29 @@ build CMakeFiles/lab9_10.dir/main.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug
   OBJECT_DIR = CMakeFiles\lab9_10.dir
   OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir
 
-build CMakeFiles/lab9_10.dir/tests.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/tests.cpp || cmake_object_order_depends_target_lab9_10
-  DEP_FILE = CMakeFiles\lab9_10.dir\tests.cpp.obj.d
+build CMakeFiles/lab9_10.dir/Tests/tests.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/Tests/tests.cpp || cmake_object_order_depends_target_lab9_10
+  DEP_FILE = CMakeFiles\lab9_10.dir\Tests\tests.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\lab9_10.dir
-  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir\Tests
 
-build CMakeFiles/lab9_10.dir/product.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/product.cpp || cmake_object_order_depends_target_lab9_10
-  DEP_FILE = CMakeFiles\lab9_10.dir\product.cpp.obj.d
+build CMakeFiles/lab9_10.dir/Domain/product.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/Domain/product.cpp || cmake_object_order_depends_target_lab9_10
+  DEP_FILE = CMakeFiles\lab9_10.dir\Domain\product.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\lab9_10.dir
-  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir\Domain
 
-build CMakeFiles/lab9_10.dir/money.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/money.cpp || cmake_object_order_depends_target_lab9_10
-  DEP_FILE = CMakeFiles\lab9_10.dir\money.cpp.obj.d
+build CMakeFiles/lab9_10.dir/Domain/money.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/Domain/money.cpp || cmake_object_order_depends_target_lab9_10
+  DEP_FILE = CMakeFiles\lab9_10.dir\Domain\money.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\lab9_10.dir
-  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir\Domain
 
-build CMakeFiles/lab9_10.dir/ui.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/ui.cpp || cmake_object_order_depends_target_lab9_10
-  DEP_FILE = CMakeFiles\lab9_10.dir\ui.cpp.obj.d
+build CMakeFiles/lab9_10.dir/Ui/ui.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C$:/Users/Home/CLionProjects/lab9-10/Ui/ui.cpp || cmake_object_order_depends_target_lab9_10
+  DEP_FILE = CMakeFiles\lab9_10.dir\Ui\ui.cpp.obj.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\lab9_10.dir
-  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir
+  OBJECT_FILE_DIR = CMakeFiles\lab9_10.dir\Ui
 
 
 # =============================================================================
@@ -87,7 +87,7 @@ build CMakeFiles/lab9_10.dir/ui.cpp.obj: CXX_COMPILER__lab9_10_unscanned_Debug C
 #############################################
 # Link the executable lab9_10.exe
 
-build lab9_10.exe: CXX_EXECUTABLE_LINKER__lab9_10_Debug CMakeFiles/lab9_10.dir/main.cpp.obj CMakeFiles/lab9_10.dir/tests.cpp.obj CMakeFiles/lab9_10.dir/product.cpp.obj CMakeFiles/lab9_10.dir/money.cpp.obj CMakeFiles/lab9_10.dir/ui.cpp.obj
+build lab9_10.exe: CXX_EXECUTABLE_LINKER__lab9_10_Debug CMakeFiles/lab9_10.dir/main.cpp.obj CMakeFiles/lab9_10.dir/Tests/tests.cpp.obj CMakeFiles/lab9_10.dir/Domain/product.cpp.obj CMakeFiles/lab9_10.dir/Domain/money.cpp.obj CMakeFiles/lab9_10.dir/Ui/ui.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\lab9_10.dir

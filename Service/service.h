@@ -6,22 +6,28 @@
 #define SERVICE_H
 #include <iostream>
 
+#include "../Exceptions/not_found_exception.h"
+#include "../Validators/money_validator.h"
+#include "../Validators/product_validator.h"
+
 #endif //SERVICE_H
-#include "money.h"
-#include "repository.h"
+#pragma once
+#include "C:\Users\Home\CLionProjects\lab9-10\Domain\money.h"
+#include "C:\Users\Home\CLionProjects\lab9-10\Domain\product.h"
+#include "C:\Users\Home\CLionProjects\lab9-10\Repository\repository.h"
 //
 // Created by Home on 08.05.2024.
 //
 class Service
 {
 private:
-    Repository<Product> productRepository;
-    Repository<Money> moneyRepository;
+    Repository<Product>* productRepository;
+    Repository<Money>* moneyRepository;
 
 public:
     //Constructors
     Service();
-    Service(Repository<Product> productRepository, Repository<Money> moneyRepository);
+    Service(Repository<Product>* productRepository, Repository<Money>* moneyRepository);
     ~Service();
 
     //add methods
@@ -46,6 +52,7 @@ public:
     int getProductKey(int codeProduct);
     int getMoneyKey(const Money& money);
 
+    map<Product,int> getAvailableProducts();
     map<Product, int> getAllProducts();
     map<Money, int> getAllMoney();
 };
@@ -55,7 +62,7 @@ inline Service::Service()
 
 }
 
-inline Service::Service(Repository<Product> productRepository, Repository<Money> moneyRepository)
+inline Service::Service(Repository<Product>* productRepository, Repository<Money>* moneyRepository)
 {
     this->moneyRepository = moneyRepository;
     this->productRepository = productRepository;
@@ -67,101 +74,101 @@ inline Service::~Service()
 
 inline void Service::addProduct(const Product& product, int noProducts)
 {
-    if (this->productRepository.findElement(product) == true)
+    if (this->productRepository->findElement(product) == true)
     {
-        int currentNoProducts = productRepository.getNoElement(product);
-        productRepository.updateElement(product, currentNoProducts + noProducts);
+        int currentNoProducts = productRepository->getNoElement(product);
+        productRepository->updateElement(product, currentNoProducts + noProducts);
     }
     else
     {
-        productRepository.addElement(product, noProducts);
+        productRepository->addElement(product, noProducts);
     }
 }
 
 inline void Service::addNoMoney(const Money& money, int noMoney)
 {
-    if (this->moneyRepository.findElement(money) == true)
+    if (this->moneyRepository->findElement(money) == true)
     {
-        int currentNoMoney = this->moneyRepository.getNoElement(money);
-        this->moneyRepository.updateElement(money, currentNoMoney + noMoney);
+        int currentNoMoney = this->moneyRepository->getNoElement(money);
+        this->moneyRepository->updateElement(money, currentNoMoney + noMoney);
     }else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline void Service::updateNoProducts(const Product& product, int noProducts)
 {
-    if (this->productRepository.findElement(product))
+    if (this->productRepository->findElement(product))
     {
         // If the product exists, update the number of products
-        productRepository.updateElement(product, noProducts);
+        productRepository->updateElement(product, noProducts);
     }else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline void Service::updateNoMoney(const Money& money, int noMoney)
 {
     // Check if the money exists in the repository
-    if (this->moneyRepository.findElement(money))
+    if (this->moneyRepository->findElement(money))
     {
         // If the money exists, update the number of money units
-        moneyRepository.updateElement(money, noMoney);
+        moneyRepository->updateElement(money, noMoney);
     }else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline void Service::deleteProduct(const Product& product)
 {
-    if (this->productRepository.findElement(product))
+    if (this->productRepository->findElement(product))
     {
-        productRepository.deleteElement(product);
+        productRepository->deleteElement(product);
     } else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline void Service::deleteNoProducts(const Product& product, int noProducts)
 {
-    if (this->productRepository.findElement(product))
+    if (this->productRepository->findElement(product))
     {
-        int currentNoProducts = productRepository.getNoElement(product);
+        int currentNoProducts = productRepository->getNoElement(product);
         int newNoProducts = currentNoProducts - noProducts;
         if (newNoProducts >= 0)
         {
-            this->productRepository.updateElement(product, newNoProducts);
+            this->productRepository->updateElement(product, newNoProducts);
         }
     }else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline void Service::deleteNoMoney(const Money& money, int noMoney)
 {
-    if (this->moneyRepository.findElement(money))
+    if (this->moneyRepository->findElement(money))
     {
-        int currentNoMoney = this->moneyRepository.getNoElement(money);
+        int currentNoMoney = this->moneyRepository->getNoElement(money);
         int newNoMoney = currentNoMoney - noMoney;
         if (newNoMoney >= 0)
         {
-            this->moneyRepository.updateElement(money, newNoMoney);
+            this->moneyRepository->updateElement(money, newNoMoney);
         }
     }else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline void Service::moneyUpdate(double money)
 {
     //parcurg de la sfarsit la inceput
-    auto moneyMap = this->moneyRepository.getAll();
+    auto moneyMap = this->moneyRepository->getAll();
     for (auto it = moneyMap.rbegin(); it != moneyMap.rend(); ++it)
     {
         //iau fiecare bancnota/moneda in parte
@@ -173,7 +180,7 @@ inline void Service::moneyUpdate(double money)
             money -= bancnota.getValue();
             //crestem numarul sau de apartitii
             it->second++;
-            this->moneyRepository.updateElement(bancnota,it->second);
+            this->moneyRepository->updateElement(bancnota,it->second);
         }
     }
 }
@@ -210,8 +217,8 @@ inline void Service::atm(int codeProduct, double money)
 inline void Service::giveChange(double change)
 {
     //facem o copie la toti banii
-    std::map<Money, int> copy = this->moneyRepository.getAll();
-    std::map<Money, int> copy2 = this->moneyRepository.getAll();
+    std::map<Money, int> copy = this->moneyRepository->getAll();
+    std::map<Money, int> copy2 = this->moneyRepository->getAll();
     //copie la rest
     double change_copy = change;
     for (auto it = copy.rbegin(); it != copy.rend(); ++it)
@@ -246,7 +253,7 @@ inline void Service::giveChange(double change)
         {
             if (it->second != it2->second)
             {
-                this->moneyRepository.updateElement(it2->first, it->second);
+                this->moneyRepository->updateElement(it2->first, it->second);
             }
             ++it;
             ++it2;
@@ -257,7 +264,7 @@ inline void Service::giveChange(double change)
 
 inline Product Service::getProduct(int codeProduct)
 {
-    std::map<Product, int> allElements = this->productRepository.getAll();
+    std::map<Product, int> allElements = this->productRepository->getAll();
     std::map<Product, int>::iterator it = allElements.begin();
     while (it->first.getCode() != codeProduct && it != allElements.end())
     {
@@ -269,26 +276,40 @@ inline Product Service::getProduct(int codeProduct)
         return y;
     }else
     {
-        std::cout<<"ENTITATEA NU EXISTA";
+        throw NotFoundException("The entity doesn't exist");
     }
 }
 
 inline int Service::getProductKey(int codeProduct)
 {
-    return this->productRepository.getNoElement(this->getProduct(codeProduct));
+    return this->productRepository->getNoElement(this->getProduct(codeProduct));
 }
 
 inline int Service::getMoneyKey(const Money& money)
 {
-    return this->moneyRepository.getNoElement(money);
+    return this->moneyRepository->getNoElement(money);
+}
+
+inline map<Product, int> Service::getAvailableProducts()
+{
+    map<Product,int> products=this->productRepository->getAll();
+    map<Product,int> newProducts;
+    for(auto it=products.begin();it!=products.end();++it)
+    {
+        if(it->second!=0)
+        {
+            newProducts.insert(pair<Product,int>(it->first,it->second));
+        }
+    }
+    return newProducts;
 }
 
 inline map<Money, int> Service::getAllMoney()
 {
-    return this->moneyRepository.getAll();
+    return this->moneyRepository->getAll();
 }
 
 inline map<Product, int> Service::getAllProducts()
 {
-    return this->productRepository.getAll();
+    return this->productRepository->getAll();
 }

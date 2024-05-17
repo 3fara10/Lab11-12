@@ -2,11 +2,11 @@
 #include<cassert>
 #include<cstring>
 
-#include "file_repository.h"
-#include"money.h"
-#include"product.h"
-#include"repository.h"
-#include"service.h"
+#include "C:\Users\Home\CLionProjects\lab9-10\Repository\file_repository.h"
+#include"C:\Users\Home\CLionProjects\lab9-10\Domain\money.h"
+#include"C:\Users\Home\CLionProjects\lab9-10\Domain\product.h"
+#include"C:\Users\Home\CLionProjects\lab9-10\Repository\repository.h"
+#include"C:\Users\Home\CLionProjects\lab9-10\Service\service.h"
 void testProduct() {
     //-----------------------------------------------------------------TEST CONSTRUCTORS
     // Test default constructor
@@ -149,18 +149,18 @@ void testFileRepository()
 void testService()
 {
     // Create repositories
-    Repository<Product>productRepository;
-    Repository<Money> moneyRepository;
-    moneyRepository.addElement(0.10,0);
-    moneyRepository.addElement(0.50,0);
-    moneyRepository.addElement(1,0);
-    moneyRepository.addElement(5,0);
-    moneyRepository.addElement(10,0);
-    moneyRepository.addElement(20,0);
-    moneyRepository.addElement(50,0);
-    moneyRepository.addElement(100,0);
-    moneyRepository.addElement(200,0);
-    moneyRepository.addElement(500,0);
+    Repository<Product>*productRepository=new Repository<Product>();
+    Repository<Money>* moneyRepository=new Repository<Money>();
+    moneyRepository->addElement(0.10,0);
+    moneyRepository->addElement(0.50,0);
+    moneyRepository->addElement(1,0);
+    moneyRepository->addElement(5,0);
+    moneyRepository->addElement(10,0);
+    moneyRepository->addElement(20,0);
+    moneyRepository->addElement(50,0);
+    moneyRepository->addElement(100,0);
+    moneyRepository->addElement(200,0);
+    moneyRepository->addElement(500,0);
     // Create service
     Service service(productRepository, moneyRepository);
 
